@@ -13,6 +13,7 @@ import java.sql.*;
 /**
  *
  * @author ozkan
+ * first commit from tolga
  */
 public class DepartmentModel implements ModelInterface{
     @Override
