@@ -14,7 +14,7 @@ public class PersonRole {
     private int personId;
     private int roleId;
     private Date startingDate;
-    private Date EndingDate;
+    private Date endingDate;
 
     public PersonRole() {
     }
@@ -23,7 +23,7 @@ public class PersonRole {
         this.personId = personId;
         this.roleId = roleId;
         this.startingDate = startingDate;
-        this.EndingDate = EndingDate;
+        this.endingDate = EndingDate;
     }
 
     public int getPersonId() {
@@ -39,7 +39,7 @@ public class PersonRole {
     }
 
     public Date getEndingDate() {
-        return EndingDate;
+        return endingDate;
     }
 
     public void setPersonId(int personId) {
@@ -55,12 +55,22 @@ public class PersonRole {
     }
 
     public void setEndingDate(Date EndingDate) {
-        this.EndingDate = EndingDate;
+        this.endingDate = EndingDate;
+    }
+    
+    public Object getByName(String field){
+        switch(field){
+            case "PersonId": return personId;
+            case "RoleId": return roleId;
+            case "StartingDate": return startingDate;
+            case "EndingDate": return endingDate;
+            default: return null;
+        }
     }
 
     @Override
     public String toString() {
-        return  personId + ", " + roleId + ", " + startingDate + ", " + EndingDate;
+        return  personId + ", " + roleId + ", " + startingDate + ", " + endingDate;
     }
     
 }

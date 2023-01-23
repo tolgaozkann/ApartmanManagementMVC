@@ -10,18 +10,18 @@ package ApartmentManagementMVC.Entity;
  */
 public class Role {
     private int id;
-    private String name;
+    private String roleName;
 
     public Role() {
     }
 
     public Role(String name) {
-        this.name = name;
+        this.roleName = name;
     }
 
     public Role(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.roleName = name;
     }
 
     public int getId() {
@@ -29,7 +29,7 @@ public class Role {
     }
 
     public String getName() {
-        return name;
+        return roleName;
     }
 
     public void setId(int id) {
@@ -37,20 +37,20 @@ public class Role {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.roleName = name;
     }
     
     public Object getByName(String field){
         switch(field)
         {
             case "Id": return id;
-            case "Name": return name;
+            case "Name": return roleName;
             default: return null;
         }
     }
     
     @Override
     public String toString(){
-        return id + ", " + name;
+        return id + ", " + roleName;
     }
 }
