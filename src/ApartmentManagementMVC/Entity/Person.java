@@ -7,7 +7,7 @@ package ApartmentManagementMVC.Entity;
 import java.math.BigDecimal;
 
 /**
- *
+ *x
  * @author ozkan
  */
 public class Person {
