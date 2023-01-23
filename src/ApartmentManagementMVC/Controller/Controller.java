@@ -11,7 +11,8 @@ import ApartmentManagementMVC.View.ViewInterface;
 
 
 /**
- *
+ *7
+ * /s
  * @author ozkan
  */
 public class Controller {
