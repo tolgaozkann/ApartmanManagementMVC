@@ -7,6 +7,7 @@ package ApartmentManagementMVC.Entity;
 /**
  *qs
  * @author ozkan
+ * sa
  */
 public class Person {
     
