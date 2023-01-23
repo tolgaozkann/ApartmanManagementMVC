@@ -4,63 +4,62 @@
  */
 package ApartmentManagementMVC.Model;
 
-import ApartmentManagementMVC.Entity.Department;
+import ApartmentManagementMVC.Entity.Person;
 import ApartmentManagementMVC.Utilities.DatabaseUtilities;
+import ApartmentManagementMVC.View.ViewData;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.sql.*;
 
 /**
  *
  * @author ozkan
- * first commit from tolga
  */
-public class DepartmentModel implements ModelInterface{
+public class PersonModel implements ModelInterface {
+
     @Override
-	public ResultSet select(Map<String, Object> whereParameters) throws Exception {
-		// construct SQL statement
-		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT ");
-		sql.append("	DepartmentID, Name, GroupName, ModifiedDate ");
-		sql.append(" FROM HumanResources.Department ");
+    public ResultSet select(Map<String, Object> whereParameters) throws Exception {
+        // construct SQL statement
+        StringBuilder sql = new StringBuilder();
+        sql.append(" SELECT ");
+        sql.append("	Id, Name, Surname, FlatId, SSN, Email, PhoneNumber ");
+        sql.append(" FROM Person ");
+        List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
+        sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 
-		List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);		
-		sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
-		
-		sql.append("ORDER BY DepartmentID");		
-		//System.out.println(sql.toString() + "\n");
+        sql.append("ORDER BY Id");
 
-		
-		// execute constructed SQL statement
-		Connection connection = DatabaseUtilities.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
-		DatabaseUtilities.setWhereStatementParameters(preparedStatement, whereParameterList);
-		ResultSet result = preparedStatement.executeQuery();
-		
-		return result;
-	}
-		
-	@Override
-	public int insert(String fieldNames, List<Object> rows) throws Exception
-	{
-		// construct SQL statement
+        // execute constructed SQL statement
+        Connection connection = DatabaseUtilities.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
+        DatabaseUtilities.setWhereStatementParameters(preparedStatement, whereParameterList);
+        ResultSet result = preparedStatement.executeQuery();
+
+        return result;
+    }
+
+    @Override
+    public int insert(String fieldNames, List<Object> rows) throws Exception {
+        // construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO HumanResources.Department (" + fieldNames + ") " );
+		sql.append(" INSERT INTO Person (" + fieldNames + ") " );
 		sql.append(" VALUES ");
 
 		String[] fieldList = fieldNames.split(",");
 
 		int rowCount = 0;
 		for (int i=0; i<rows.size(); i++) {
-			if (rows.get(i) instanceof Department) {
+			if (rows.get(i) instanceof Person) {
 				rowCount++;
 				
-				Department department = (Department)rows.get(i); 
+				Person person = (Person)rows.get(i); 
 	
 				sql.append("(");
 				for (int j=0; j<fieldList.length; j++) {
 					String fieldName = fieldList[j].trim();
-					sql.append(DatabaseUtilities.formatField(department.getByName(fieldName)));
+					sql.append(DatabaseUtilities.formatField(person.getByName(fieldName)));
 					if (j < fieldList.length - 1) {
 						sql.append(", ");
 					}
@@ -84,14 +83,13 @@ public class DepartmentModel implements ModelInterface{
 		}
 		
 		return rowCount;
-	}
-	
-	@Override
-	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
-	{
-		// construct SQL statement
+    }
+
+    @Override
+    public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
+        // construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE HumanResources.Department SET ");
+		sql.append(" UPDATE Person SET ");
 		int appendCount = 0;
 		for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
 			sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
@@ -112,14 +110,13 @@ public class DepartmentModel implements ModelInterface{
 		preparedStatement.close();
 		
 		return rowCount;
-	}
+    }
 
-	@Override
-	public int delete(Map<String,Object> whereParameters) throws Exception
-	{
-		// construct SQL statement
+    @Override
+    public int delete(Map<String, Object> whereParameters) throws Exception {
+        // construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" DELETE FROM HumanResources.Department ");
+		sql.append(" DELETE FROM Person ");
 
 		List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);		
 		sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -134,10 +131,11 @@ public class DepartmentModel implements ModelInterface{
 		preparedStatement.close();
 		
 		return rowCount;
-	}
+    }
 
-	@Override
-	public String toString() {
-		return "Department Model";
-	}
+   @Override
+   public String toString(){
+       return "Person Model";
+   }
+
 }
