@@ -4,31 +4,31 @@
  */
 package ApartmentManagementMVC.Model;
 
-import ApartmentManagementMVC.Entity.Department;
+import ApartmentManagementMVC.Entity.Subscription;
 import ApartmentManagementMVC.Utilities.DatabaseUtilities;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.sql.*;
 
 /**
  *
- * @author ozkan first commit from tolga
+ * @author baransonmez
  */
-public class DepartmentModel implements ModelInterface {
-
+public class SubscriptionModel implements ModelInterface{
+    
     @Override
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
-        sql.append("	DepartmentID, Name, GroupName, ModifiedDate ");
-        sql.append(" FROM HumanResources.Department ");
-
+        sql.append("	Id, Category, DueDate, ApartmentId, Image ");
+        sql.append(" FROM Subscription ");
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 
-        sql.append("ORDER BY DepartmentID");
-        //System.out.println(sql.toString() + "\n");
+        sql.append("ORDER BY Id");
 
         // execute constructed SQL statement
         Connection connection = DatabaseUtilities.getConnection();
@@ -38,27 +38,27 @@ public class DepartmentModel implements ModelInterface {
 
         return result;
     }
-
-    @Override
+    
+     @Override
     public int insert(String fieldNames, List<Object> rows) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" INSERT INTO HumanResources.Department (" + fieldNames + ") ");
+        sql.append(" INSERT INTO Subscription (" + fieldNames + ") ");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
 
         int rowCount = 0;
         for (int i = 0; i < rows.size(); i++) {
-            if (rows.get(i) instanceof Department) {
+            if (rows.get(i) instanceof Subscription) {
                 rowCount++;
 
-                Department department = (Department) rows.get(i);
+                Subscription subscription = (Subscription) rows.get(i);
 
                 sql.append("(");
                 for (int j = 0; j < fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
-                    sql.append(DatabaseUtilities.formatField(department.getByName(fieldName)));
+                    sql.append(DatabaseUtilities.formatField(subscription.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
                         sql.append(", ");
                     }
@@ -82,12 +82,11 @@ public class DepartmentModel implements ModelInterface {
 
         return rowCount;
     }
-
-    @Override
+     @Override
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" UPDATE HumanResources.Department SET ");
+        sql.append(" UPDATE Subscription SET ");
         int appendCount = 0;
         for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
             sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
@@ -108,12 +107,11 @@ public class DepartmentModel implements ModelInterface {
 
         return rowCount;
     }
-
-    @Override
+     @Override
     public int delete(Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" DELETE FROM HumanResources.Department ");
+        sql.append(" DELETE FROM Subscription ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -131,6 +129,6 @@ public class DepartmentModel implements ModelInterface {
 
     @Override
     public String toString() {
-        return "Department Model";
+        return "Subscription Model";
     }
 }

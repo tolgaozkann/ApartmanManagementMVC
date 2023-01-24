@@ -89,7 +89,7 @@ public class PersonView implements ViewInterface {
         BigDecimal ssn = new BigDecimal(ssnDouble);
         String email = getString("Email : ", true);
         String phoneNumber = getString("PhoneNumber : ", true);
-
+//personId sor
         Map<String, Object> whereParameters = new HashMap<>();
         if (personId != null) {
             whereParameters.put("PersonId", personId);
@@ -147,7 +147,7 @@ public class PersonView implements ViewInterface {
             System.out.println();
 
             BigDecimal ssn = new BigDecimal(ssnDouble);
-
+//null sor
             if (name != null && surName != null && flatId != null && email != null && phoneNumber != null) {
                 rows.add(new Person(name, surName, flatId, ssn, email, phoneNumber));
             }
@@ -159,6 +159,7 @@ public class PersonView implements ViewInterface {
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {
+        //true'ları sor
         System.out.println("Fields to update:");
         String name = getString("Name : ", true);
         String surName = getString("Surname : ", true);

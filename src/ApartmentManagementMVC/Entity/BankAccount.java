@@ -4,10 +4,13 @@
  */
 package ApartmentManagementMVC.Entity;
 
+import java.util.Date;
+
 /**
  *
  * @author ozkan
  */
 public class BankAccount {
+  
     
 }
