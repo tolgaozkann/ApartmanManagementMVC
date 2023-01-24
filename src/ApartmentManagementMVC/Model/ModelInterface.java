@@ -38,6 +38,7 @@ public interface ModelInterface {
             }
             case "insert": {
                 String fieldNames = (String) (viewData.viewParameters.get("fieldNames"));
+                System.out.println(fieldNames);
                 List<Object> rows = (List<Object>) (viewData.viewParameters.get("rows"));
 
                 int recordCount = insert(fieldNames, rows);

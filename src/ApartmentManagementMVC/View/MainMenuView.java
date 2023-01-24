@@ -5,15 +5,15 @@
 package ApartmentManagementMVC.View;
 
 import ApartmentManagementMVC.Controller.Controller;
-import ApartmentManagementMVC.Model.ModelData;
-import ApartmentManagementMVC.Model.PersonModel;
+import ApartmentManagementMVC.Model.*;
 import java.util.*;
 
 /**
  *
  * @author ozkan
  */
-public class MainMenuView implements ViewInterface{
+public class MainMenuView implements ViewInterface {
+
     public MainMenuView() {
 
     }
@@ -40,9 +40,12 @@ public class MainMenuView implements ViewInterface{
         switch (choice.intValue()) {
             case 1:
                 ViewData viewData = userOperations();
-                Controller controller = new Controller(new PersonView(),new PersonModel());
+                do{
+                Controller controller = new Controller(new PersonView(), new PersonModel());
                 ModelData modelData = controller.executeModel(viewData);
-                controller.getView(modelData,viewData.functionName,viewData.operationName);
+                viewData = controller.getView(modelData, viewData.functionName, viewData.operationName);
+                }while(viewData.functionName != null);
+                
 
                 System.out.println();
                 System.out.println("-------------------------------------------------");
@@ -52,7 +55,16 @@ public class MainMenuView implements ViewInterface{
                 roleOperations();
                 break;
             case 3:
-                operationName = "insert.gui";
+                viewData = apartmentOperations();
+                do{
+                Controller controller = new Controller(new PersonView(), new PersonModel());
+                ModelData modelData = controller.executeModel(viewData);
+                viewData = controller.getView(modelData, viewData.functionName, viewData.operationName);
+                }while(viewData.functionName != null);
+                
+                System.out.println();
+                System.out.println("-------------------------------------------------");
+                System.out.println();
                 break;
             case 4:
                 operationName = "update.gui";
@@ -70,8 +82,9 @@ public class MainMenuView implements ViewInterface{
     public String toString() {
         return "Main Menu View";
     }
-    public ViewData apartmentOperations() throws Exception{
-    Integer choice;
+
+    public ViewData apartmentOperations() throws Exception {
+        Integer choice;
         String operationName = null;
         do {
             System.out.println("1. Show all Apartments");
@@ -109,7 +122,7 @@ public class MainMenuView implements ViewInterface{
         }
 
         return new ViewData("Apartment", operationName, new HashMap<>());
-}
+    }
 
     public ViewData roleOperations() throws Exception {
         Integer choice;

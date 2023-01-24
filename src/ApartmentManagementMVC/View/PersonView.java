@@ -4,8 +4,10 @@
  */
 package ApartmentManagementMVC.View;
 
+import ApartmentManagementMVC.Controller.Controller;
 import ApartmentManagementMVC.Entity.Person;
 import ApartmentManagementMVC.Model.ModelData;
+import ApartmentManagementMVC.Model.NopModel;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.*;
@@ -18,18 +20,26 @@ public class PersonView implements ViewInterface {
 
     @Override
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
-        switch(operationName) {
-		case "select": return selectOperation(modelData);	
-		case "insert": return insertOperation(modelData);	
-		case "update": return updateOperation(modelData);	
-		case "delete": return deleteOperation(modelData);	
-		case "select.gui": return selectGUI(modelData);
-		case "insert.gui": return insertGUI(modelData);
-		case "update.gui": return updateGUI(modelData);
-		case "delete.gui": return deleteGUI(modelData);
-		}
-		
-		return new ViewData("MainMenu", "");
+        switch (operationName) {
+            case "select":
+                return selectOperation(modelData);
+            case "insert":
+                return insertOperation(modelData);
+            case "update":
+                return updateOperation(modelData);
+            case "delete":
+                return deleteOperation(modelData);
+            case "select.gui":
+                return selectGUI(modelData);
+            case "insert.gui":
+                return insertGUI(modelData);
+            case "update.gui":
+                return updateGUI(modelData);
+            case "delete.gui":
+                return deleteGUI(modelData);
+        }
+
+        return new ViewData("MainMenu", "");
     }
 
     ViewData selectOperation(ModelData modelData) throws Exception {
@@ -63,29 +73,42 @@ public class PersonView implements ViewInterface {
 
     ViewData insertOperation(ModelData modelData) throws Exception {
         System.out.println("Number of inserted rows is " + modelData.recordCount);
+        ViewData viewData = new ViewData("MainMenu", "");
+        Controller controller = new Controller(new MainMenuView(), new NopModel());
+        controller.getMainMenuView();
 
-        return new ViewData("MainMenu", "");
+        return viewData;
     }
 
     ViewData updateOperation(ModelData modelData) throws Exception {
         System.out.println("Number of updated rows is " + modelData.recordCount);
+ViewData viewData = new ViewData("MainMenu", "");
+        Controller controller = new Controller(new MainMenuView(), new NopModel());
+        controller.getMainMenuView();
 
-        return new ViewData("MainMenu", "");
+        return viewData;
     }
 
     ViewData deleteOperation(ModelData modelData) throws Exception {
         System.out.println("Number of deleted rows is " + modelData.recordCount);
+        ViewData viewData = new ViewData("MainMenu", "");
+        Controller controller = new Controller(new MainMenuView(), new NopModel());
+        controller.getMainMenuView();
 
-        return new ViewData("MainMenu", "");
+        return viewData;
     }
 
     Map<String, Object> getWhereParameters() throws Exception {
+        Scanner reader = new Scanner(System.in);
         System.out.println("Filter conditions:");
         Integer personId = getInteger("Person ID : ", true);
+        
+        reader.nextLine();
         String name = getString("Name : ", true);
         String surName = getString("Surname : ", true);
         Integer flatId = getInteger("FlatId :", true);
-        Double ssnDouble = getDouble("SSN", true);
+        reader.nextLine();
+        Double ssnDouble = getDouble("SSN : ", false);
         BigDecimal ssn = new BigDecimal(ssnDouble);
         String email = getString("Email : ", true);
         String phoneNumber = getString("PhoneNumber : ", true);
@@ -125,33 +148,36 @@ public class PersonView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "Name, GroupName");
-
+        parameters.put("fieldNames", "Name, Surname, SSN, Email, PhoneNumber, FlatId");
+        Scanner reader = new Scanner(System.in);
         List<Object> rows = new ArrayList<>();
 
         String name, surName, email, phoneNumber;
         Integer flatId;
         Double ssnDouble;
-        do {
-            System.out.println("Fields to insert:");
-            name = getString("Name : ", true);
-            surName = getString("SurName : ", true);
-            System.out.println();
-            flatId = getInteger("FlatId : ", false);
-            System.out.println();
-            ssnDouble = getDouble("SSN : ", false);
-            System.out.println();
-            email = getString("Email : ", false);
-            System.out.println();
-            phoneNumber = getString("PhoneNumber : ", false);
-            System.out.println();
 
-            BigDecimal ssn = new BigDecimal(ssnDouble);
+        System.out.println("Fields to insert:");
+        name = getString("Name : ", true);
+        surName = getString("SurName : ", true);
+        ssnDouble = getDouble("SSN : ", true);
+        email = getString("Email : ", true);
+        phoneNumber = getString("PhoneNumber : ", true);
+        reader.nextLine();
+        flatId = getInteger("FlatId : ", true);
 
-            if (name != null && surName != null && flatId != null && email != null && phoneNumber != null) {
-                rows.add(new Person(name, surName, flatId, ssn, email, phoneNumber));
-            }
-        } while (name != null && surName != null && flatId != null && ssnDouble != null && email != null && phoneNumber != null);
+        BigDecimal ssn = new BigDecimal(ssnDouble);
+
+        System.out.println(name);
+        System.out.println(surName);
+        System.out.println(flatId);
+        System.out.println(ssn);
+        System.out.println(email);
+        System.out.println(phoneNumber);
+
+        if (name != null && surName != null && flatId != null && email != null && phoneNumber != null && ssn != null) {
+            System.out.println("buraya girdi");
+            rows.add(new Person(name, surName, flatId, ssn, email, phoneNumber));
+        }
 
         parameters.put("rows", rows);
 

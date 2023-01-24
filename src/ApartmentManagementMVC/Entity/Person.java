@@ -107,7 +107,7 @@ public class Person {
             case "FlatId": return flatId;
             case "SSN": return ssn;
             case "Email": return email;
-            case "Phone Number": return phoneNumber;
+            case "PhoneNumber": return phoneNumber;
             default: return null;
         }
     }

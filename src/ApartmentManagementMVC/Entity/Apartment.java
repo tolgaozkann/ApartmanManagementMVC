@@ -11,20 +11,17 @@ package ApartmentManagementMVC.Entity;
 public class Apartment {
     private int apartmentNo;
     private String address;
-    private int managerId;
 
     public Apartment(){
 
     }
-    public Apartment(String address,  int managerId){
+    public Apartment(String address){
         this.address= address;
-        this.managerId=managerId;
     }
 
-    public Apartment(int apartmentNo, String address,  int managerId ){
+    public Apartment(int apartmentNo, String address ){
         this.apartmentNo= apartmentNo;
         this.address= address;
-        this.managerId= managerId;
 
     }
 
@@ -44,26 +41,17 @@ public class Apartment {
         this.address = address;
     }
 
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
-    }
-
     public Object getByName(String field) {
 		switch (field) {
 		case "ApartmentNo": return apartmentNo;
 		case "Address": return address;
-		case "ManagerId": return managerId;
 		default: return null;
 		}
 	}
 
     @Override
     public String toString() {
-        return apartmentNo +", "+address+", "+managerId;
+        return apartmentNo +", "+address;
     }
 
 

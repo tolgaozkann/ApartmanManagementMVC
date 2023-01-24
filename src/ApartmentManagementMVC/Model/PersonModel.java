@@ -59,6 +59,7 @@ public class PersonModel implements ModelInterface {
 				sql.append("(");
 				for (int j=0; j<fieldList.length; j++) {
 					String fieldName = fieldList[j].trim();
+                                        System.out.println(fieldName);
 					sql.append(DatabaseUtilities.formatField(person.getByName(fieldName)));
 					if (j < fieldList.length - 1) {
 						sql.append(", ");
