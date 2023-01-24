@@ -25,8 +25,11 @@ public class DatabaseUtilities {
     public static Connection getConnection() throws SQLException {
         if (connection == null) {
             String conUrl = "jdbc:sqlserver://" + host + ";"
+                    + "encrypt=true;"
                     + "databaseName=" + databaseName + ";"
-                    + "integratedSecurity=true";
+                    + "integratedSecurity = true;"
+                    + "trustServerCertificate=true;";
+            
 
             connection = DriverManager.getConnection(conUrl);
         }

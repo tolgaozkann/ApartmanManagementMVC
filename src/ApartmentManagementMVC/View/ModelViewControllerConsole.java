@@ -5,9 +5,7 @@
 package ApartmentManagementMVC.View;
 
 import ApartmentManagementMVC.Controller.Controller;
-import ApartmentManagementMVC.Model.DepartmentModel;
-import ApartmentManagementMVC.Model.ModelData;
-import ApartmentManagementMVC.Model.NopModel;
+import ApartmentManagementMVC.Model.*;
 import ApartmentManagementMVC.Utilities.DatabaseUtilities;
 import java.util.*;
 
@@ -25,13 +23,15 @@ public class ModelViewControllerConsole {
         Map<String, Controller> router = new HashMap<>();
         router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
         router.put("Department", new Controller(new DepartmentView(), new DepartmentModel()));
+        router.put("Person", new Controller(new PersonView(),new PersonModel()));
+        router.put("Role", new Controller(new RoleView(),new RoleModel()));
 
         ViewData viewData = new ViewData("MainMenu", "");
         do {
             // Model, View, and Controller
             Controller controller = router.get(viewData.functionName);
             ModelData modelData = controller.executeModel(viewData);
-            viewData = controller.getView(modelData, viewData.functionName, viewData.operationName);
+            controller.getMainMenuView();
 
             System.out.println();
             System.out.println("-------------------------------------------------");
@@ -47,8 +47,8 @@ public class ModelViewControllerConsole {
     }
 
     public static void connectToDatabase() {
-        DatabaseUtilities.host = "localhost:50674";
-        DatabaseUtilities.databaseName = "AdventureWorks2019";
+        DatabaseUtilities.host = "localhost:7176";
+        DatabaseUtilities.databaseName = "ApartmentManagementDB";
 
         try {
             DatabaseUtilities.getConnection();

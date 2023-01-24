@@ -137,13 +137,13 @@ public class PersonView implements ViewInterface {
             name = getString("Name : ", true);
             surName = getString("SurName : ", true);
             System.out.println();
-            flatId = getInteger("FlatId", false);
+            flatId = getInteger("FlatId : ", false);
             System.out.println();
-            ssnDouble = getDouble("SSN", false);
+            ssnDouble = getDouble("SSN : ", false);
             System.out.println();
-            email = getString("Email", false);
+            email = getString("Email : ", false);
             System.out.println();
-            phoneNumber = getString("PhoneNumber", false);
+            phoneNumber = getString("PhoneNumber : ", false);
             System.out.println();
 
             BigDecimal ssn = new BigDecimal(ssnDouble);
