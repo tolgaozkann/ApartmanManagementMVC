@@ -12,7 +12,8 @@ import ApartmentManagementMVC.View.MainMenuView;
 
 
 /**
- *
+ *7
+ * /s
  * @author ozkan
  */
 public class Controller {
