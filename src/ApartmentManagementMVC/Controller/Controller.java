@@ -8,6 +8,7 @@ import ApartmentManagementMVC.Model.ModelData;
 import ApartmentManagementMVC.Model.ModelInterface;
 import ApartmentManagementMVC.View.ViewData;
 import ApartmentManagementMVC.View.ViewInterface;
+import ApartmentManagementMVC.View.MainMenuView;
 
 
 /**
@@ -30,6 +31,11 @@ public class Controller {
 	public ViewData getView(ModelData modelData, String functionName, String operationName) throws Exception {
 		return view.create(modelData, functionName, operationName);
 	}
+        
+        public void getMainMenuView()throws Exception{
+            MainMenuView mainMenu = new MainMenuView();
+             mainMenu.begin();
+        }
 	
 	@Override
 	public String toString() {
