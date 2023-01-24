@@ -133,7 +133,7 @@ public class BankAccountModel implements ModelInterface{
 
     @Override
     public String toString() {
-        return "BankAccountModel";
+        return "BankAccount Model";
     }
 
 }
